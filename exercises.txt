@@ -1,0 +1,58 @@
+Exercises from ChatGPT
+
+---
+
+### 🧩 **Beginner Level**
+
+1. **Even or Odd**
+   Write a program that checks whether a number entered by the user is even or odd.
+
+2. **Age Group Checker**
+   Ask for the user’s age and print:
+
+   * “Child” if below 13
+   * “Teenager” if between 13 and 19
+   * “Adult” if 20 or above
+
+3. **Largest Number**
+   Ask for **three numbers**, then print which one is the largest.
+
+---
+
+### 💡 **Intermediate Level**
+
+4. **Grading System**
+   Ask for a student’s score (0–100).
+   Print:
+
+   * A (80–100)
+   * B (70–79)
+   * C (60–69)
+   * D (50–59)
+   * F (Below 50)
+
+5. **Leap Year Checker**
+   Ask for a year and print whether it’s a leap year or not.
+   (Hint: A leap year is divisible by 4 but not 100, except if divisible by 400.)
+
+6. **Number Sign**
+   Ask for a number and print whether it’s **positive, negative, or zero.**
+
+---
+
+### ⚡ **Challenge Level**
+
+7. **Simple ATM Program**
+
+   * Ask for a PIN (e.g., 1234).
+   * If it’s correct, show options like `1. Withdraw`, `2. Check Balance`, `3. Exit`.
+   * Use conditionals to handle each option.
+
+8. **Mini Discount Calculator**
+
+   * Ask for the price of an item.
+   * If it’s above ₦10,000 → 15% discount.
+   * If between ₦5,000–₦10,000 → 10% discount.
+   * Otherwise → no discount.
+   * Show final price after discount.
+
