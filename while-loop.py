@@ -2,7 +2,7 @@ i = 1
 while i < 6:
     print(i)
     i += 1
-print("Loop 1 ended.")
+print("Loop 1 ends here.")
 
 a = 5
 while a > 0:
