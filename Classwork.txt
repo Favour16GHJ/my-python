@@ -1,0 +1,18 @@
+[12:23, 10/22/2025] +234 903 753 2899: 🔹 Intermediate Level
+
+Guess the number game
+The program randomly selects a number between 1–20. The user keeps guessing until they get it right.
+
+Digits of a number
+Ask the user for a number and print each digit separately using a while loop.
+
+Palindrome checker
+Check if a number entered by the user is a palindrome (same forward and backward).
+
+Factorial of a number
+Use a while loop to calculate the factorial of a given number.
+
+ATM Withdrawal Simulation
+Ask the user for withdrawal amounts. Keep asking until they enter a valid amount that is a multiple of 100 and less than the balance.
+[12:24, 10/22/2025] +234 903 753 2899: Menu-driven program
+Create a small menu (like calculator: add, subtract, multiply, divide). Keep running until the user chooses to exit

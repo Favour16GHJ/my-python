@@ -1,8 +1,8 @@
 num = int(input("Enter the number: "))
-f = 1
+factorial = 1
 
 while num > 0:
-    f *= num
+    factorial *= num
     num -= 1
 
-# print(f)
+print(factorial)
