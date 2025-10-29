@@ -14,6 +14,6 @@ cardict = {
     "Model": "Mustang",
     "Year": 1964
 }
-for i in cardict:
-    print(cardict[i])
+for i in cardict.items():
+    print(i)
 # print(cardict)

@@ -1,0 +1,14 @@
+    elif user_task == 10:
+        departments = {}
+        for i in employee_data:
+            dept = employee_data[i]['department']
+            name = employee_data[i]['name']
+            if dept not in departments:
+                departments[dept] = [name]
+            else:
+                departments[dept].append(name)
+        for dept, names in departments.items():
+            print(f"{dept} Department:")
+            for name in names:
+                print(f"- {name}")
+            print()  # Print a newline for better readability
