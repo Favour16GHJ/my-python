@@ -12,3 +12,42 @@
             for name in names:
                 print(f"- {name}")
             print()  # Print a newline for better readability
+
+Task 6 solution
+elif user_task == 6:
+    active_salaries = [
+        employee_data[i]['salary ($)']
+        for i in employee_data
+        if isinstance(employee_data[i], dict)
+    ]
+    if not active_salaries:
+        print("No active employees found.")
+        continue
+
+    highest_salary = max(active_salaries)
+    for j in employee_data:
+        if isinstance(employee_data[j], dict) and employee_data[j]['salary ($)'] == highest_salary:
+            print(f"Highest earner is {employee_data[j]['name']} with a salary of ${highest_salary}")
+
+
+Task 7 solution
+elif user_task == 7:
+    total_salary = 0
+    count = 0
+    for i in employee_data:
+        if isinstance(employee_data[i], dict):
+            total_salary += employee_data[i]['salary ($)']
+            count += 1
+    if count == 0:
+        print("No active employees to calculate average salary.")
+    else:
+        average_salary = total_salary // count
+        print(f'The average salary of all employees is ${average_salary}')
+
+
+Task 10 solution
+If a record is "Employee has been terminated.", this will crash since it tries to access ['department'].
+
+✅ Add a quick check:
+
+if isinstance(employee_data[j], dict) and employee_data[j]['department'] == i:

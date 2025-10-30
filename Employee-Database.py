@@ -100,12 +100,17 @@ while True:
     "12. Exit the database"
     )
 
-    user_task = int(input(">>>>>>>  "))
+    try:
+        user_task = int(input(">>>>>>>  "))
+    except ValueError:
+        print("Invalid input. Please enter a number between 1 and 12.")
+        continue  # this restarts the loop safely
 
-    # 1. Print the name and department of all employee(Task 1).
+# 1. Print the name and department of all employee(Task 1).
+
     if user_task == 1:
         for x , y in employee_data.items():
-            print(f'{y['name']} : {y["department"]}')
+            print(f"{y['name']} : {y['department']}")
    
 
 # 2. Add a new employee record.(Task 2)
@@ -113,9 +118,13 @@ while True:
     elif user_task == 2:
         updated_id = max(employee_data) + 1 
         updated_name = input("Enter employee name: ")
-        updated_age = int(input("Enter employee age: "))
         updated_department = input("Enter employee department: ")
-        updated_salary = int(input("Enter employee salary: "))
+        try:
+            updated_age = int(input("Enter employee age: "))
+            updated_salary = int(input("Enter employee salary: "))
+        except ValueError:
+            print("Invalid input! Age and salary must be numbers.")
+            continue
         employee_data.update({updated_id: {"name": updated_name,
                                            "age" : updated_age,
                                            "department" : updated_department,
@@ -130,47 +139,90 @@ while True:
 
 # 3. Update employee salary.(Task 3)
 
+    # elif user_task == 3:
+    #     update_salary = int(input("Enter employee ID to update salary: "))
+    #     if update_salary in employee_data.keys():
+    #         print(f"Employee ID {update_salary} occupied by {employee_data[update_salary]['name']}")
+    #         print(f"Current salary of {employee_data[update_salary]['name']} is ${employee_data[update_salary]['salary ($)']}")
+    #         new_salary = float(input("Enter new salary: "))
+    #         employee_data[update_salary]['salary ($)'] = new_salary
+    #         print("Salary updated successfully.")
+    #         print(f"Updated record:{employee_data[update_salary]}")
+    #     else :
+    #         print("Employee ID not found. Please try again.")
+    #         continue
     elif user_task == 3:
-        update_salary = int(input("Enter employee ID to update salary: "))
-        if update_salary in employee_data.keys():
+        try:
+            update_salary = int(input("Enter employee ID to update salary: "))
+            if update_salary not in employee_data:
+                print("Employee ID not found. Please try again.")
+                continue
+
             print(f"Employee ID {update_salary} occupied by {employee_data[update_salary]['name']}")
-            print(f"Current salary of {employee_data[update_salary]['name']} is ${employee_data[update_salary]['salary ($)']}")
-            new_salary = float(input("Enter new salary: "))
+            print(f"Current salary: ${employee_data[update_salary]['salary ($)']}")
+
+            new_salary = float(input("Enter new salary($): "))
             employee_data[update_salary]['salary ($)'] = new_salary
-            print("Salary updated successfully.")
-            print(f"Updated record:{employee_data[update_salary]}")
-        else :
-            print("Employee ID not found. Please try again.")
-            continue
+            print("✅ Salary updated successfully.")
+            print(f"Updated record: {employee_data[update_salary]}")
+
+        except ValueError:
+            print("Invalid input! Employee ID and salary must be numbers. Please try again.")
+
 
 # 4. Delete employee from the record(Task 4).
     elif user_task == 4:
-        del_record = int(input("Enter employee ID to delete record: "))
-        if del_record in employee_data.keys():
+        # del_record = int(input("Enter employee ID to delete record: "))
+        # if del_record in employee_data.keys():
+        #     print(f"Employee ID {del_record} occupied by {employee_data[del_record]['name']}")
+        #     confirm_deletion = input("Are you sure you want to delete this record? (yes/no): ")
+        #     if confirm_deletion.lower() == "yes":
+        #         employee_data[del_record] = "Employee has terminated."
+
+        #         # del employee_data[del_record]
+        #         print("Employee record deleted successfully.")
+
+        #         # So basically, I am to rearrange the remaining records after deletion.
+        #         # According to ChatGPT,
+        #         ## Rearrange IDs (renumber)
+        #         # new_employees = {}
+        #         # new_id = 1
+        #         # for key in sorted(employees.keys()):
+        #         #     new_employees[new_id] = employees[key]
+        #         #     new_id += 1
+        #         # employees = new_employees  # 🔥 This is where replacement happens
+
+        #         # reordered_data = {}
+        #         # new_id = 1
+        #         # for key in sorted(employee_data.keys()):
+        #         #     reordered_data[new_id] = employee_data[key]
+        #         #     new_id += 1
+        #         # employee_data = reordered_data 
+
+        #         user_request = input("Do you want to view updated database? (yes/no): ")
+        #         if user_request.lower() == "yes":
+        #             print(employee_data)
+        #         else:
+        #             continue
+        #     else:
+        #         print("Deletion cancelled.")
+        # else:
+        #     print("Employee ID not found. Please try again.")
+            # continue
+        # Ask Sir Henry how to make the remaining records arrange themselves after deletion. 
+        # Okay don't bother, you used his idea on Employee Resigned instead.
+
+        try:
+            del_record = int(input("Enter employee ID to delete record: "))
+            if del_record not in employee_data:
+                print("Employee ID not found. Please try again.")
+                continue
+
             print(f"Employee ID {del_record} occupied by {employee_data[del_record]['name']}")
-            confirm_deletion = input("Are you sure you want to delete this record? (yes/no): ")
-            if confirm_deletion.lower() == "yes":
-                employee_data[del_record] = "Employee has terminated."
-
-                # del employee_data[del_record]
+            confirm_deletion = input("Are you sure you want to delete this record? (yes/no): ").lower()
+            if confirm_deletion == "yes":
+                employee_data[del_record] = "Employee has been terminated."
                 print("Employee record deleted successfully.")
-
-                # So basically, I am to rearrange the remaining records after deletion.
-                # According to ChatGPT,
-                ## Rearrange IDs (renumber)
-                # new_employees = {}
-                # new_id = 1
-                # for key in sorted(employees.keys()):
-                #     new_employees[new_id] = employees[key]
-                #     new_id += 1
-                # employees = new_employees  # 🔥 This is where replacement happens
-
-                # reordered_data = {}
-                # new_id = 1
-                # for key in sorted(employee_data.keys()):
-                #     reordered_data[new_id] = employee_data[key]
-                #     new_id += 1
-                # employee_data = reordered_data 
 
                 user_request = input("Do you want to view updated database? (yes/no): ")
                 if user_request.lower() == "yes":
@@ -178,12 +230,10 @@ while True:
                 else:
                     continue
             else:
-                print("Deletion cancelled.")
-        else:
-            print("Employee ID not found. Please try again.")
-            continue
-        # Ask Sir Henry how to make the remaining records arrange themselves after deletion. 
-        # Okay don't bother, you used his idea on Employee Resigned instead.
+                print("Deletion cancelled.")    
+
+        except ValueError:
+            print("Invalid input! Employee ID must be an integer.")
 
 
 # 5. Display the total number of employee currently in the dictionary( Task 5).
@@ -194,7 +244,7 @@ while True:
         # FIND A SOLUTION TO AFTER DELETION ARRANGEMENTS.
         count = 0
         for i in employee_data:
-            if employee_data[i] == "Employee has terminated.":
+            if employee_data[i] == "Employee has been terminated.":
                 pass
             else:
                 count += 1
@@ -258,19 +308,29 @@ while True:
         "- Marketing \n" \
         "- Sales \n" \
         "- Management")
-        i_name = input("Enter department name: ")
-        print(f"Employees in {i_name} department:")
-        for i in employee_data:
-            if employee_data[i]['department'].lower() == i_name.lower():
-                print(f"- {employee_data[i]['name']}")
-
+        dept_name = input("Enter department name: ")
+        print(f"Employees in {dept_name} department:")
+        found = False
+        for dept in employee_data:
+            if employee_data[dept]['department'].lower() == dept_name.lower():
+                print(f"- {employee_data[dept]['name']}")
+                # global found
+                found = True
+        
+        if not found:
+            print("\n")
+            print(f"No employees found in {dept_name} department. \n")
 # 9. Enter an employee ID and view that employee's full record (Task 9).
     elif user_task == 9:
-        employee_id = int(input("Please insert employee ID: "))
-        if employee_id in employee_data:
-            print(f'Information on employee with ID {employee_id} as follows: \n {employee_data[employee_id]}')
-        else:
-            print("Employee ID is not in database. Please retry.")
+        try: 
+            employee_id = int(input("Please insert employee ID: "))
+        except:
+            print("Employee ID must be an integer. \n")
+            continue    
+        if employee_id not in employee_data:
+            print(f"Employee with ID {employee_id} is not in database. Please retry.")
+            continue
+        print(f'Information on employee with ID {employee_id} as follows: \n {employee_data[employee_id]}')
 # 10. Group employees by department and print all names under each. (Task 10)
 
     elif user_task == 10:
@@ -290,16 +350,45 @@ while True:
 
 # 11. Add bonus for any employees by percentage. (Task 11)
     elif user_task == 11:
-        bonus_id = int(input("Enter desired employee ID: "))
-        if bonus_id in employee_data:
-            bonus_percentage = float(input("Enter percentage of bonus: "))
-            original_salary = employee_data[bonus_id]['salary ($)']
-            bonus_amount = original_salary * (bonus_percentage / 100)
-            desired_salary = original_salary + bonus_amount
-            employee_data[bonus_id]['salary ($)'] = desired_salary
-            print(f"Bonus granted successfully. New salary of {employee_data[bonus_id]['name']} is ${desired_salary}")
-        else: 
+        try: 
+            bonus_id = int(input("Enter desired employee ID: "))
+        except:
+            print("Employee ID must be an integer. Please try again!")
+            continue
+        if bonus_id not in employee_data:
             print("Employee ID not found. Please try again.")
+
+        # Skip terminated employee
+        if employee_data[bonus_id] == "Employee has been terminated.":
+            # print("This employee record is no longer active.\n")
+            print("This employee has been terminated.\n")
+            continue
+        print(f"Curent salary of {employee_data[bonus_id]['name']} is {employee_data[bonus_id]['salary ($)']}")
+        try:
+            bonus_percentage = float(input("Enter percentage of bonus: "))
+        except ValueError:
+            print("Bonus percentage must be a number.\n")
+            continue
+        original_salary = employee_data[bonus_id]['salary ($)']
+        bonus_amount = original_salary * (bonus_percentage / 100)
+        desired_salary = original_salary + bonus_amount
+        employee_data[bonus_id]['salary ($)'] = desired_salary
+
+        print(f"Bonus granted successfully! ")
+        print(f"New salary of {employee_data[bonus_id]['name']} is ${desired_salary}")
+        #         
+# Need for when the employee is terminated             
+        # try:
+        #     bonus_percentage = float(input("Enter percentage of bonus: "))
+        # except ValueError:
+        #     print("Bonus percentage must be a number.\n")
+        #     continue
+        # original_salary = employee_data[bonus_id]['salary ($)']
+        # bonus_amount = original_salary * (bonus_percentage / 100)
+        # desired_salary = original_salary + bonus_amount
+        # employee_data[bonus_id]['salary ($)'] = desired_salary
+        # print(f"Bonus granted successfully. New salary of {employee_data[bonus_id]['name']} is ${desired_salary}")
+    
 
 #12. Exiting the database(Additional Task 12)
     elif user_task == 12:
@@ -310,8 +399,11 @@ while True:
         else:
             print("Phew.. That was close!")
             continue
+    elif user_task < 1 or user_task > 12:
+        print("Please enter a number between 1 and 12.")
+        continue    
     else:
-        print("Invalid input. Please try again.")
+        print("Invalid input. Please.")
         continue
 
 ## Finished at approx 6hours 30 minutes from 9:00 AM to 2:30 PM
