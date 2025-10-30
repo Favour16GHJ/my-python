@@ -13,7 +13,17 @@
                 print(f"- {name}")
             print()  # Print a newline for better readability
 
-Task 6 solution
+Task 6 solution DONE
+
+        employee_salary = []
+        for i in employee_data:
+            employee_salary.append(employee_data[i]['salary ($)'])
+        highest_salary = max(employee_salary)
+        for j in employee_data:
+            if employee_data[j]['salary ($)'] == highest_salary:
+                print(f"Highest earner is {employee_data[j]['name']} with a salary of ${highest_salary}")
+
+
 elif user_task == 6:
     active_salaries = [
         employee_data[i]['salary ($)']
@@ -29,8 +39,29 @@ elif user_task == 6:
         if isinstance(employee_data[j], dict) and employee_data[j]['salary ($)'] == highest_salary:
             print(f"Highest earner is {employee_data[j]['name']} with a salary of ${highest_salary}")
 
+elif user_task == 6:
+    employee_salary = []
+    for i in employee_data:
+        try:
+            employee_salary.append(employee_data[i]['salary ($)'])
+        except TypeError:
+            # This happens if the record is a string (terminated employee)
+            continue
+    if len(employee_salary) == 0:
+        print("No active employees found.")
+        continue
 
-Task 7 solution
+    highest_salary = max(employee_salary)
+    for j in employee_data:
+        try:
+            if employee_data[j]['salary ($)'] == highest_salary:
+                print(f"Highest earner is {employee_data[j]['name']} with a salary of ${highest_salary}")
+        except TypeError:
+            continue
+
+
+
+Task 7 solution DONE
 elif user_task == 7:
     total_salary = 0
     count = 0
@@ -44,10 +75,132 @@ elif user_task == 7:
         average_salary = total_salary // count
         print(f'The average salary of all employees is ${average_salary}')
 
+elif user_task == 7:
+    total_salary = 0
+    count = 0
+    for i in employee_data:
+        try:
+            total_salary += employee_data[i]['salary ($)']
+            count += 1
+        except TypeError:
+            # Happens if employee_data[i] is not a dictionary (e.g., terminated)
+            continue
 
-Task 10 solution
+    if count == 0:
+        print("No active employees to calculate average salary.")
+    else:
+        average_salary = total_salary / count
+        print(f"The average salary of all employees is ${average_salary}")
+
+
+
+Task 10 solution DONE
 If a record is "Employee has been terminated.", this will crash since it tries to access ['department'].
 
 ✅ Add a quick check:
 
 if isinstance(employee_data[j], dict) and employee_data[j]['department'] == i:
+
+elif user_task == 10:
+    departments = set()
+
+    # Collect valid department names only
+    for i in employee_data:
+        try:
+            departments.add(employee_data[i]['department'])
+        except TypeError:
+            continue  # Skip terminated employees
+
+    # Display employees department by department
+    for dept in departments:
+        print(f"Employees in {dept} department:")
+        for j in employee_data:
+            try:
+                if employee_data[j]['department'] == dept:
+                    print(f"- {employee_data[j]['name']}")
+            except TypeError:
+                continue
+        print("")  # Blank line between departments
+
+
+Task 8 DONE
+elif user_task == 8: 
+    print("List of departments available:\n- HR\n- IT\n- Finance\n- Marketing\n- Sales\n- Management")
+    dept_name = input("Enter department name: ").strip()
+    print(f"Employees in {dept_name} department:")
+
+    found = False
+    for i in employee_data:
+        try:
+            if employee_data[i]['department'].lower() == dept_name.lower():
+                print(f"- {employee_data[i]['name']}")
+                found = True
+        except TypeError:
+            continue  # Skip terminated employees
+
+    if not found:
+        print(f"No employees found in {dept_name} department.")
+
+Task 4 DONE
+elif user_task == 4:
+    try:
+        del_record = int(input("Enter employee ID to delete record: "))
+        if del_record not in employee_data:
+            print("Employee ID not found. Please try again.")
+            continue
+
+        # 🧠 Prevent re-deletion error
+        if employee_data[del_record] == "Employee has been terminated.":
+            print("This employee record is already terminated.")
+            continue
+
+        print(f"Employee ID {del_record} occupied by {employee_data[del_record]['name']}")
+        confirm_deletion = input("Are you sure you want to delete this record? (yes/no): ").lower()
+        if confirm_deletion == "yes":
+            employee_data[del_record] = "Employee has been terminated."
+            print("Employee record deleted successfully.")
+
+            user_request = input("Do you want to view updated database? (yes/no): ")
+            if user_request.lower() == "yes":
+                print(employee_data)
+        else:
+            print("Deletion cancelled.")    
+
+    except ValueError:
+        print("Invalid input! Employee ID must be an integer.")
+
+
+Task 11 DONE
+elif user_task == 11:
+    try: 
+        bonus_id = int(input("Enter desired employee ID: "))
+    except ValueError:
+        print("Employee ID must be an integer. Please try again!")
+        continue
+
+    # Check if ID exists first
+    if bonus_id not in employee_data:
+        print("Employee ID not found. Please try again.")
+        continue
+
+    # Check if employee is already terminated
+    if employee_data[bonus_id] == "Employee has been terminated.":
+        print("This employee has been terminated and cannot receive a bonus.\n")
+        continue
+
+    # Now safe to access inner data
+    print(f"Current salary of {employee_data[bonus_id]['name']} is ${employee_data[bonus_id]['salary ($)']}")
+
+    try:
+        bonus_percentage = float(input("Enter percentage of bonus: "))
+    except ValueError:
+        print("Bonus percentage must be a number.\n")
+        continue
+
+    original_salary = employee_data[bonus_id]['salary ($)']
+    bonus_amount = original_salary * (bonus_percentage / 100)
+    desired_salary = original_salary + bonus_amount
+    employee_data[bonus_id]['salary ($)'] = desired_salary
+
+    print("✅ Bonus granted successfully!")
+    print(f"New salary of {employee_data[bonus_id]['name']} is ${desired_salary}")
