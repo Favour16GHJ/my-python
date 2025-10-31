@@ -61,7 +61,7 @@ employee_data = {
         },                         
 }
 
-print("Welcome to the employee database. ")
+print("Welcome to the employee database. \n")
 print(employee_data)
 while True:
     print(
@@ -83,11 +83,14 @@ while True:
     try:
         user_task = int(input(">>>>>>>  "))
     except ValueError:
-        print("Invalid input. Please enter a number between 1 and 12.")
+        print("Invalid input. Please enter a number between 1 and 12.\n")
         continue 
+
     if user_task == 1:
         for x , y in employee_data.items():
             print(f"{y['name']} : {y['department']}")
+        print("")
+
     elif user_task == 2:
         updated_id = max(employee_data) + 1 
         updated_name = input("Enter employee name: ")
@@ -96,56 +99,62 @@ while True:
             updated_age = int(input("Enter employee age: "))
             updated_salary = int(input("Enter employee salary: "))
         except ValueError:
-            print("Invalid input! Age and salary must be numbers.")
+            print("Invalid input! Age and salary must be numbers. \n")
             continue
         employee_data.update({updated_id: {"name": updated_name,
                                            "age" : updated_age,
                                            "department" : updated_department,
                                            "salary ($)" : updated_salary}})
-        print("New employee record added successfully.")
+        print("New employee record added successfully. \n")
         user_request = input("Do you want to veiw updated database? (yes/no)")
         if user_request.lower() == "yes":
-            print(employee_data)
+            print(employee_data, '\n')
+
             continue
         else:
             continue
+
     elif user_task == 3:
         try:
             update_salary = int(input("Enter employee ID to update salary: "))
             if update_salary not in employee_data:
-                print("Employee ID not found. Please try again.")
+                print("Employee ID not found. Please try again.\n")
                 continue
             print(f"Employee ID {update_salary} occupied by {employee_data[update_salary]['name']}")
-            print(f"Current salary: ${employee_data[update_salary]['salary ($)']}")
+            print(f"Current salary: ${employee_data[update_salary]['salary ($)']} \n")
             new_salary = float(input("Enter new salary($): "))
             employee_data[update_salary]['salary ($)'] = new_salary
             print("Salary updated successfully.")
-            print(f"Updated record: {employee_data[update_salary]}")
+            print(f"Updated record: {employee_data[update_salary]}\n")
         except ValueError:
-            print("Invalid input! Employee ID and salary must be numbers. Please try again.")
+            print("Invalid input! Employee ID and salary must be numbers. Please try again.\n")
+
     elif user_task == 4:
         try:
             del_record = int(input("Enter employee ID to delete record: "))
             if del_record not in employee_data:
-                print("Employee ID not found. Please try again.")
+                print("Employee ID not found. Please try again.\n")
                 continue
             if employee_data[del_record] == "Employee has been terminated.":
-                print("This employee record is already terminated.")
+                print("This employee record is already terminated.\n")
                 continue
             print(f"Employee ID {del_record} occupied by {employee_data[del_record]['name']}")
             confirm_deletion = input("Are you sure you want to delete this record? (yes/no): ").lower()
             if confirm_deletion == "yes":
                 employee_data[del_record] = {"Employee has been terminated."}
-                print("Employee record deleted successfully.")
+                print("Employee record deleted successfully.\n")
                 user_request = input("Do you want to view updated database? (yes/no): ")
                 if user_request.lower() == "yes":
                     print(employee_data)
+                    print("\n")
+                    continue
                 else:
                     continue
             else:
-                print("Deletion cancelled.") 
+                print("Deletion cancelled.\n") 
         except ValueError:
-            print("Invalid input! Employee ID must be an integer.")
+            print("Invalid input! Employee ID must be an integer.\n")
+
     elif user_task == 5:
         count = 0
         for i in employee_data:
@@ -154,6 +163,7 @@ while True:
             else:
                 count += 1
         print(f"There are currently {count} employees")
+
     elif user_task == 6:
         employee_salary = []
         for i in employee_data:
@@ -162,16 +172,17 @@ while True:
             except TypeError:
                 continue
         if len(employee_salary) == 0:
-            print("No active employees found.")
+            print("No active employees found.\n")
             continue
 
         highest_salary = max(employee_salary)
         for j in employee_data:
             try:
                 if employee_data[j]['salary ($)'] == highest_salary:
-                    print(f"Highest earner is {employee_data[j]['name']} with a salary of ${highest_salary}")
+                    print(f"Highest earner is {employee_data[j]['name']} with a salary of ${highest_salary}\n")
             except TypeError:
                 continue
+
     elif user_task == 7:
         sum_of_salary = 0
         count = 0
@@ -182,10 +193,12 @@ while True:
             except TypeError:
                 continue
         if count == 0:
-            print("All  Employees have been terminated")
+            print("All  Employees have been terminated" \
+            "\n")
         else:
             average_salary = sum_of_salary // max(employee_data)
-            print(f'The average salary of all employees is ${average_salary}')
+            print(f'The average salary of all employees is ${average_salary} \n')
+
     elif user_task == 8:
         print("List of departments available: \n" \
         "- HR \n" \
@@ -208,6 +221,7 @@ while True:
         if not found:
             print("\n")
             print(f"No employees found in {dept_name} department. \n")
+
     elif user_task == 9:
         try: 
             employee_id = int(input("Please insert employee ID: "))
@@ -217,7 +231,8 @@ while True:
         if employee_id not in employee_data:
             print(f"Employee with ID {employee_id} is not in database. Please retry.")
             continue
-        print(f'Information on employee with ID {employee_id} as follows: \n {employee_data[employee_id]}')
+        print(f'Information on employee with ID {employee_id} as follows: \n {employee_data[employee_id]} \n')
+
     elif user_task == 10:
         departments = []
         for i in employee_data:
@@ -235,19 +250,20 @@ while True:
                 except TypeError:
                     continue
             print("")
+
     elif user_task == 11:
         try: 
             bonus_id = int(input("Enter desired employee ID: "))
         except ValueError:
-            print("Employee ID must be an integer. Please try again!")
+            print("Employee ID must be an integer. Please try again! \n")
             continue
         if bonus_id not in employee_data:
-            print("Employee ID not found. Please try again.")
+            print("Employee ID not found. Please try again. \n")
             continue
-        if employee_data[bonus_id] == "Employee has been terminated.":
+        if employee_data[bonus_id] == {"Employee has been terminated."}:
             print("This employee has been terminated.\n")
             continue
-        print(f"Curent salary of {employee_data[bonus_id]['name']} is {employee_data[bonus_id]['salary ($)']}")
+        print(f"Current salary of {employee_data[bonus_id]['name']} is {employee_data[bonus_id]['salary ($)']}")
         try:
             bonus_percentage = float(input("Enter percentage of bonus: "))
         except ValueError:
@@ -259,7 +275,8 @@ while True:
         employee_data[bonus_id]['salary ($)'] = desired_salary
 
         print(f"Bonus granted successfully! ")
-        print(f"New salary of {employee_data[bonus_id]['name']} is ${desired_salary}")
+        print(f"New salary of {employee_data[bonus_id]['name']} is ${desired_salary} \n")
+
     elif user_task == 12:
         exit_database = input("Do you want to exit database?(yes/no): ")
         if exit_database.lower() == "yes":
@@ -272,5 +289,5 @@ while True:
         print("Please enter a number between 1 and 12.")
         continue    
     else:
-        print("Invalid input. Please.")
+        print("Invalid input. Please try again.")
         continue
