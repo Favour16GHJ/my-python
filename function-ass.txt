@@ -1,0 +1,7 @@
+Find maximum of three numbers findmax(abc)
+ispalindrome(word) return true
+count_vowels(string) no of vowels
+reverse a list(irems)
+factorial of n
+square of a number
+even or odd
